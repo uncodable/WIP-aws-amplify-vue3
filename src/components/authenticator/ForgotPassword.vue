@@ -141,12 +141,12 @@ export default defineComponent({
       )
         .then(() => {
           this.logger.info("forgotPasswordSubmit success");
-          this.AmplifyEventBus.emit("authState", "signIn");
+          this.$AmplifyEventBus.emit("authState", "signIn");
         })
         .catch(e => this.setError(e));
     },
     signIn: function() {
-      this.AmplifyEventBus.emit("authState", "signIn");
+      this.$AmplifyEventBus.emit("authState", "signIn");
     },
     setError: function(e) {
       this.error = this.$Amplify.I18n.get(e.message || e);

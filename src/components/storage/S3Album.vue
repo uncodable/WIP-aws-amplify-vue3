@@ -39,7 +39,7 @@ export default defineComponent({
   mounted() {
     this.logger = new this.$Amplify.Logger(this.$options.name);
     this.getImages();
-    this.AmplifyEventBus.on("fileUpload", img => {
+    this.$AmplifyEventBus.on("fileUpload", img => {
       this.pushImage(img);
     });
   },

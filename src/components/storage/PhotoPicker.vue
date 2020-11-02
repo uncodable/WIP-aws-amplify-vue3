@@ -114,7 +114,7 @@ export default defineComponent({
       this.file = null;
       this.s3ImageFile = null;
       this.$refs.file_input.value = null;
-      this.AmplifyEventBus.emit("fileUpload", img);
+      this.$AmplifyEventBus.emit("fileUpload", img);
     },
     setError: function(e) {
       this.error = this.$Amplify.I18n.get(e.message || e);

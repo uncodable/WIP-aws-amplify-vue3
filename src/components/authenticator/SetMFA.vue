@@ -218,7 +218,7 @@ export default defineComponent({
     setMFA: function() {
       this.$Amplify.Auth.setPreferredMFA(this.user, this.mfaPreference)
         .then(data => {
-          this.AmplifyEventBus.emit("authState", "signedIn");
+          this.$AmplifyEventBus.emit("authState", "signedIn");
           this.$destroy();
         })
         .catch(e => {

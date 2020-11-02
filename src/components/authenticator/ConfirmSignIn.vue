@@ -93,12 +93,12 @@ export default defineComponent({
       )
         .then(() => {
           this.logger.info("confirmSignIn successs");
-          this.AmplifyEventBus.emit("authState", "signedIn");
+          this.$AmplifyEventBus.emit("authState", "signedIn");
         })
         .catch(e => this.setError(e));
     },
     signIn: function() {
-      this.AmplifyEventBus.emit("authState", "signIn");
+      this.$AmplifyEventBus.emit("authState", "signIn");
     },
     setError: function(e) {
       this.error = this.$Amplify.I18n.get(e.message || e);

@@ -112,7 +112,7 @@ export default defineComponent({
       this.$Amplify.Auth.confirmSignUp(this.options.username, this.code)
         .then(() => {
           this.logger.info("confirmSignUp success");
-          this.AmplifyEventBus.emit("authState", "signIn");
+          this.$AmplifyEventBus.emit("authState", "signIn");
         })
         .catch(e => this.setError(e));
     },
@@ -124,7 +124,7 @@ export default defineComponent({
         .catch(e => this.setError(e));
     },
     signIn() {
-      this.AmplifyEventBus.emit("authState", "signIn");
+      this.$AmplifyEventBus.emit("authState", "signIn");
     },
     setError(e) {
       this.error = this.$Amplify.I18n.get(e.message || e);

@@ -25,11 +25,12 @@ export default {
     }
 
     requiredComponent.keys().forEach(c => {
-      app.component(requiredComponent(c).default.name, requiredComponent(c).default);
+      console.log(requiredComponent(c).default.name);
+      app.component(requiredComponent(c).default.name, requiredComponent(c).default || requiredComponent(c));
     });
 
     const AmplifyEventBus = mitt();
-    app.config.globalProperties.AmplifyEventBus = AmplifyEventBus;
+    app.config.globalProperties.$AmplifyEventBus = AmplifyEventBus;
     app.config.globalProperties.$Amplify = AmplifyModules;
   }
 };

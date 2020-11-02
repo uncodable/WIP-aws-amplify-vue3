@@ -114,8 +114,8 @@ export default defineComponent({
     checkContact(user) {
       this.$Amplify.Auth.verifiedContact(user)
         .then(data => {
-          this.AmplifyEventBus.emit("localUser", this.user);
-          this.AmplifyEventBus.emit("authState", "signedIn");
+          this.$AmplifyEventBus.emit("localUser", this.user);
+          this.$AmplifyEventBus.emit("authState", "signedIn");
         })
         .catch(e => this.setError(e));
     },
@@ -127,11 +127,11 @@ export default defineComponent({
       )
         .then(user => {
           if (this.options.user.challengeName === "SMS_MFA") {
-            this.AmplifyEventBus.emit("localUser", this.options.user);
-            this.AmplifyEventBus.emit("authState", "confirmSignIn");
+            this.$AmplifyEventBus.emit("localUser", this.options.user);
+            this.$AmplifyEventBus.emit("authState", "confirmSignIn");
           } else if (this.options.user.challengeName === "MFA_SETUP") {
-            this.AmplifyEventBus.emit("localUser", this.options.user);
-            this.AmplifyEventBus.emit("authState", "setMfa");
+            this.$AmplifyEventBus.emit("localUser", this.options.user);
+            this.$AmplifyEventBus.emit("authState", "setMfa");
           } else {
             this.checkContact(this.options.user);
           }
@@ -139,7 +139,7 @@ export default defineComponent({
         .catch(err => this.setError(err));
     },
     signIn: function() {
-      this.AmplifyEventBus.emit("authState", "signIn");
+      this.$AmplifyEventBus.emit("authState", "signIn");
     }
   }
 });
