@@ -5,7 +5,6 @@
 <script lang="ts">
 import AmplifyPlugin from "./plugins/AmplifyPlugin";
 import AmplifyEventBus from "./events/AmplifyEventBus";
-import * as components from "./components";
 
 export default {
   name: "Amplify",
