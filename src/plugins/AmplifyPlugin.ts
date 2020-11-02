@@ -25,7 +25,6 @@ export default {
     }
 
     requiredComponent.keys().forEach(c => {
-      console.log(requiredComponent(c).default.name);
       app.component(requiredComponent(c).default.name, requiredComponent(c).default || requiredComponent(c));
     });
 

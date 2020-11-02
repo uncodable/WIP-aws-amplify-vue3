@@ -38,9 +38,27 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import GetUser from "../../services/getUser";
+import ConfirmSignIn from "./ConfirmSignIn";
+import ConfirmSignUp from "./ConfirmSignUp";
+import ForgotPassword from "./ForgotPassword";
+import RequireNewPassword from "./RequireNewPassword";
+import SetMFA from "./SetMFA";
+import SignIn from "./SignIn";
+import SignOut from "./SignOut";
+import SignUp from "./SignUp";
 
 export default defineComponent({
   name: "amplify-authenticator",
+  components: {
+    ConfirmSignIn,
+    ConfirmSignUp,
+    ForgotPassword
+    RequireNewPassword,
+    SetMFA,
+    SignIn,
+    SignOut,
+    SignUp
+  },
   props: ["authConfig"],
   data() {
     return {
