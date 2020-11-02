@@ -19,7 +19,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import AmplifyEventBus from "../../events/AmplifyEventBus";
 
 export default defineComponent({
   name: "amplify-s3-album",
@@ -40,7 +39,7 @@ export default defineComponent({
   mounted() {
     this.logger = new this.$Amplify.Logger(this.$options.name);
     this.getImages();
-    AmplifyEventBus.$on("fileUpload", img => {
+    this.AmplifyEventBus.on("fileUpload", img => {
       this.pushImage(img);
     });
   },

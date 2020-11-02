@@ -6,7 +6,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import AmplifyEventBus from "../../events/AmplifyEventBus";
 
 export default defineComponent({
   name: "amplify-s3-image",

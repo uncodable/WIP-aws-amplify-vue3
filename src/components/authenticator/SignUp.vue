@@ -79,7 +79,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import orderBy from "lodash.orderby";
-import AmplifyEventBus from "../../events/AmplifyEventBus";
 import * as AmplifyUI from "@aws-amplify/ui";
 import countries from "../../assets/countries";
 import signUpWithUsername, {
@@ -243,11 +242,11 @@ export default defineComponent({
       this.$Amplify.Auth.signUp(user)
         .then(data => {
           this.logger.info("sign up success");
-          AmplifyEventBus.$emit("localUser", data.user);
+          this.AmplifyEventBus.emit("localUser", data.user);
           if (data.userConfirmed === false) {
-            return AmplifyEventBus.$emit("authState", "confirmSignUp");
+            return this.AmplifyEventBus.emit("authState", "confirmSignUp");
           }
-          return AmplifyEventBus.$emit("authState", "signIn");
+          return this.AmplifyEventBus.emit("authState", "signIn");
         })
         .catch(e => this.setError(e));
     },
@@ -268,7 +267,7 @@ export default defineComponent({
       return invalids.length < 1;
     },
     signIn: function() {
-      AmplifyEventBus.$emit("authState", "signIn");
+      this.AmplifyEventBus.emit("authState", "signIn");
     },
     clear(field) {
       if (field && field.invalid && field.value) {

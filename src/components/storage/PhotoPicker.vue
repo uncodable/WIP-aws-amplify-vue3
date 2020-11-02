@@ -43,7 +43,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import * as AmplifyUI from "@aws-amplify/ui";
-import AmplifyEventBus from "../../events/AmplifyEventBus";
 
 export default defineComponent({
   name: "amplify-photo-picker",
@@ -115,7 +114,7 @@ export default defineComponent({
       this.file = null;
       this.s3ImageFile = null;
       this.$refs.file_input.value = null;
-      AmplifyEventBus.$emit("fileUpload", img);
+      this.AmplifyEventBus.emit("fileUpload", img);
     },
     setError: function(e) {
       this.error = this.$Amplify.I18n.get(e.message || e);

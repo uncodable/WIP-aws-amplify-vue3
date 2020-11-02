@@ -91,7 +91,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import AmplifyEventBus from "../../events/AmplifyEventBus";
 import * as AmplifyUI from "@aws-amplify/ui";
 import UsernameField from "./UsernameField";
 import { auth } from "../../assets/data-test-attributes";
@@ -142,12 +141,12 @@ export default defineComponent({
       )
         .then(() => {
           this.logger.info("forgotPasswordSubmit success");
-          AmplifyEventBus.$emit("authState", "signIn");
+          this.AmplifyEventBus.emit("authState", "signIn");
         })
         .catch(e => this.setError(e));
     },
     signIn: function() {
-      AmplifyEventBus.$emit("authState", "signIn");
+      this.AmplifyEventBus.emit("authState", "signIn");
     },
     setError: function(e) {
       this.error = this.$Amplify.I18n.get(e.message || e);

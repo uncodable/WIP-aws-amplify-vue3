@@ -76,7 +76,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import AmplifyEventBus from "../../events/AmplifyEventBus";
 import * as AmplifyUI from "@aws-amplify/ui";
 import { labelMap } from "./common";
 import { auth } from "../../assets/data-test-attributes";
@@ -113,7 +112,7 @@ export default defineComponent({
       this.$Amplify.Auth.confirmSignUp(this.options.username, this.code)
         .then(() => {
           this.logger.info("confirmSignUp success");
-          AmplifyEventBus.$emit("authState", "signIn");
+          this.AmplifyEventBus.emit("authState", "signIn");
         })
         .catch(e => this.setError(e));
     },
@@ -125,7 +124,7 @@ export default defineComponent({
         .catch(e => this.setError(e));
     },
     signIn() {
-      AmplifyEventBus.$emit("authState", "signIn");
+      this.AmplifyEventBus.emit("authState", "signIn");
     },
     setError(e) {
       this.error = this.$Amplify.I18n.get(e.message || e);

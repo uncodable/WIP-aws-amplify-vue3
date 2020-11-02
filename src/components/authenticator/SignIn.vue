@@ -76,7 +76,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 // import Auth from '@aws-amplify/auth';
-import AmplifyEventBus from "../../events/AmplifyEventBus";
 import * as AmplifyUI from "@aws-amplify/ui";
 import UsernameField from "./UsernameField";
 import { auth } from "../../assets/data-test-attributes";
@@ -124,41 +123,41 @@ export default defineComponent({
             data.challengeName === "SMS_MFA" ||
             data.challengeName === "SOFTWARE_TOKEN_MFA"
           ) {
-            AmplifyEventBus.$emit("localUser", data);
-            return AmplifyEventBus.$emit("authState", "confirmSignIn");
+            this.AmplifyEventBus.emit("localUser", data);
+            return this.AmplifyEventBus.emit("authState", "confirmSignIn");
           } else if (data.challengeName === "NEW_PASSWORD_REQUIRED") {
-            AmplifyEventBus.$emit("localUser", data);
-            return AmplifyEventBus.$emit("authState", "requireNewPassword");
+            this.AmplifyEventBus.emit("localUser", data);
+            return this.AmplifyEventBus.emit("authState", "requireNewPassword");
           } else if (data.challengeName === "MFA_SETUP") {
-            AmplifyEventBus.$emit("localUser", data);
-            return AmplifyEventBus.$emit("authState", "setMfa");
+            this.AmplifyEventBus.emit("localUser", data);
+            return this.AmplifyEventBus.emit("authState", "setMfa");
           } else if (
             data.challengeName === "CUSTOM_CHALLENGE" &&
             data.challengeParam &&
             data.challengeParam.trigger === "true"
           ) {
-            AmplifyEventBus.$emit("localUser", data);
-            return AmplifyEventBus.$emit("authState", "customConfirmSignIn");
+            this.AmplifyEventBus.emit("localUser", data);
+            return this.AmplifyEventBus.emit("authState", "customConfirmSignIn");
           } else {
-            return AmplifyEventBus.$emit("authState", "signedIn");
+            return this.AmplifyEventBus.emit("authState", "signedIn");
           }
         })
         .catch(e => {
           if (e.code && e.code === "UserNotConfirmedException") {
-            AmplifyEventBus.$emit("localUser", {
+            this.AmplifyEventBus.emit("localUser", {
               username: this.signInUsername
             });
-            AmplifyEventBus.$emit("authState", "confirmSignUp");
+            this.AmplifyEventBus.emit("authState", "confirmSignUp");
           } else {
             this.setError(e);
           }
         });
     },
     forgot: function() {
-      AmplifyEventBus.$emit("authState", "forgotPassword");
+      this.AmplifyEventBus.emit("authState", "forgotPassword");
     },
     signUp: function() {
-      AmplifyEventBus.$emit("authState", "signUp");
+      this.AmplifyEventBus.emit("authState", "signUp");
     },
     setError: function(e) {
       this.error = this.$Amplify.I18n.get(e.message || e);

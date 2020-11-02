@@ -18,7 +18,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import AmplifyEventBus from "../../events/AmplifyEventBus";
 import * as AmplifyUI from "@aws-amplify/ui";
 import { existsSync } from "fs";
 import { auth } from "../../assets/data-test-attributes";
@@ -52,7 +51,7 @@ export default defineComponent({
       this.$Amplify.Auth.signOut()
         .then(() => {
           this.logger.info("signout success");
-          return AmplifyEventBus.$emit("authState", "signedOut");
+          return this.AmplifyEventBus.emit("authState", "signedOut");
         })
         .catch(e => this.setError(e));
     },

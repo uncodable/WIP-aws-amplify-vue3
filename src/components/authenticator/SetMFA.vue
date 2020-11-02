@@ -132,7 +132,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 // import Auth from '@aws-amplify/auth';
-import AmplifyEventBus from "../../events/AmplifyEventBus";
 import * as AmplifyUI from "@aws-amplify/ui";
 import QrcodeVue from "qrcode.vue";
 import { auth } from "../../assets/data-test-attributes";
@@ -219,7 +218,7 @@ export default defineComponent({
     setMFA: function() {
       this.$Amplify.Auth.setPreferredMFA(this.user, this.mfaPreference)
         .then(data => {
-          AmplifyEventBus.$emit("authState", "signedIn");
+          this.AmplifyEventBus.emit("authState", "signedIn");
           this.$destroy();
         })
         .catch(e => {

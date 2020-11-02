@@ -57,7 +57,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import AmplifyEventBus from "../../events/AmplifyEventBus";
 
 let audioControl;
 
@@ -131,7 +130,7 @@ export default defineComponent({
   },
   methods: {
     performOnComplete(evt) {
-      AmplifyEventBus.$emit("chatComplete", this.options.botTitle);
+      this.AmplifyEventBus.emit("chatComplete", this.options.botTitle);
       if (this.options.clearComplete) {
         this.messages = [];
       }
@@ -153,7 +152,7 @@ export default defineComponent({
       };
       this.$Amplify.Interactions.send(this.options.bot, this.inputText)
         .then(response => {
-          AmplifyEventBus.$emit("chatResponse", response);
+          this.AmplifyEventBus.emit("chatResponse", response);
           this.inputText = "";
           if (response.message) {
             message.bot = response.message;

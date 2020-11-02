@@ -37,7 +37,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import AmplifyEventBus from "../../events/AmplifyEventBus";
 import GetUser from "../../services/getUser";
 
 export default defineComponent({
@@ -70,14 +69,14 @@ export default defineComponent({
   },
   async mounted() {
     this.logger = new this.$Amplify.Logger(this.$options.name);
-    AmplifyEventBus.$on("localUser", user => {
+    this.AmplifyEventBus.on("localUser", user => {
       this.user = user;
       this.options.signInConfig.username = this.user.username;
       this.options.confirmSignInConfig.user = this.user;
       this.options.confirmSignUpConfig.username = this.user.username;
       this.options.requireNewPasswordConfig.user = this.user;
     });
-    AmplifyEventBus.$on("authState", data => {
+    this.AmplifyEventBus.on("authState", data => {
       this.displayMap = this.updateDisplayMap(data);
     });
     GetUser(this.$Amplify)

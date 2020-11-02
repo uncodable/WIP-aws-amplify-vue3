@@ -4,12 +4,10 @@
 
 <script lang="ts">
 import AmplifyPlugin from "./plugins/AmplifyPlugin";
-import AmplifyEventBus from "./events/AmplifyEventBus";
 
 export default {
   name: "Amplify",
-  AmplifyPlugin,
-  AmplifyEventBus
+  AmplifyPlugin
 };
 </script>
 

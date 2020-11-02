@@ -1,3 +1,5 @@
+import Vue from 'vue';
+
 class AmplifyEventBus {
   events: any;
   constructor() {
@@ -29,4 +31,7 @@ class AmplifyEventBus {
   }
 }
 
-export default new AmplifyEventBus();
+const app = Vue.createApp({});
+app.config.globalProperties.AmplifyEventBus = new AmplifyEventBus();
+
+export default app;

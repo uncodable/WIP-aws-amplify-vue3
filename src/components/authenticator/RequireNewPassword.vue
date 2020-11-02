@@ -73,7 +73,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import AmplifyEventBus from "../../events/AmplifyEventBus";
 import * as AmplifyUI from "@aws-amplify/ui";
 import { auth } from "../../assets/data-test-attributes";
 
@@ -115,8 +114,8 @@ export default defineComponent({
     checkContact(user) {
       this.$Amplify.Auth.verifiedContact(user)
         .then(data => {
-          AmplifyEventBus.$emit("localUser", this.user);
-          AmplifyEventBus.$emit("authState", "signedIn");
+          this.AmplifyEventBus.emit("localUser", this.user);
+          this.AmplifyEventBus.emit("authState", "signedIn");
         })
         .catch(e => this.setError(e));
     },
@@ -128,11 +127,11 @@ export default defineComponent({
       )
         .then(user => {
           if (this.options.user.challengeName === "SMS_MFA") {
-            AmplifyEventBus.$emit("localUser", this.options.user);
-            AmplifyEventBus.$emit("authState", "confirmSignIn");
+            this.AmplifyEventBus.emit("localUser", this.options.user);
+            this.AmplifyEventBus.emit("authState", "confirmSignIn");
           } else if (this.options.user.challengeName === "MFA_SETUP") {
-            AmplifyEventBus.$emit("localUser", this.options.user);
-            AmplifyEventBus.$emit("authState", "setMfa");
+            this.AmplifyEventBus.emit("localUser", this.options.user);
+            this.AmplifyEventBus.emit("authState", "setMfa");
           } else {
             this.checkContact(this.options.user);
           }
@@ -140,7 +139,7 @@ export default defineComponent({
         .catch(err => this.setError(err));
     },
     signIn: function() {
-      AmplifyEventBus.$emit("authState", "signIn");
+      this.AmplifyEventBus.emit("authState", "signIn");
     }
   }
 });

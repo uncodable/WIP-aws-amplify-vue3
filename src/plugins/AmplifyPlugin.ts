@@ -1,4 +1,5 @@
 import { App } from "vue";
+import mitt from 'mitt';
 
 const requiredModules = ["Auth", "I18n", "Logger"];
 const requiredComponent = require.context(
@@ -24,9 +25,11 @@ export default {
     }
 
     requiredComponent.keys().forEach(c => {
-      app.component(requiredComponent(c).default.name, requiredComponent(c));
+      app.component(requiredComponent(c).default.name, requiredComponent(c).default);
     });
 
+    const AmplifyEventBus = mitt();
+    app.config.globalProperties.AmplifyEventBus = AmplifyEventBus;
     app.config.globalProperties.$Amplify = AmplifyModules;
   }
 };
